@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GenAI Course-Builder — Muhammad Obaidullah</title>
+<meta name="description" content="Case study: an agentic GenAI pipeline that generates full, publishable courses from a learning objective.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <span class="brand">Muhammad<span>.</span></span>
+    <a class="back-link" href="../index.html#work">← Back to portfolio</a>
+  </div>
+</header>
+
+<main>
+  <section class="proj-hero">
+    <div class="wrap-narrow">
+      <p class="proj-meta">DQ Lab · 2024–2025</p>
+      <h1>GenAI Course-Builder</h1>
+      <p class="lede">
+        An agent pipeline that turns a learning objective and an age group into a full,
+        publishable course — intro, curriculum, lessons, sessions, and a rubric-graded
+        assessment.
+      </p>
+      <div class="proj-tags">
+        <span>OpenAI API</span><span>LangChain</span><span>LangGraph</span><span>LangSmith</span><span>ChromaDB</span><span>MongoDB</span><span>Python</span><span>TypeScript</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="proj-section">
+    <div class="wrap-narrow">
+      <h2>Challenge</h2>
+      <p>
+        The brief was: give it a learning objective and an age group, and it generates a
+        full course — intro, curriculum, lessons, sessions, an assessment — good enough to
+        actually publish, not just a draft someone has to rewrite. That meant the output
+        had to be consistent, gradeable, and reliable enough to ship without a human rewrite
+        pass every time.
+      </p>
+    </div>
+  </section>
+
+  <section class="proj-section">
+    <div class="wrap-narrow">
+      <h2>Architecture &amp; design</h2>
+      <p>
+        I built this as a chain of agents rather than one big prompt. A planning agent lays
+        out the curriculum, then separate agents handle lessons, sessions, and the
+        assessment, each picking up from what the last one produced. Alongside that, a
+        short intro video gets generated through a third-party API, and a dedicated agent
+        writes the slide that introduces the objective to the learner.
+      </p>
+      <div class="proj-diagram">
+        <img src="../images/diagrams/diagram-1-course-builder.png" alt="GenAI course-builder pipeline: learning objective branches into an intro video API call and an introduction agent, both feeding a curriculum agent, then lesson, session, and assessment agents in sequence.">
+      </div>
+      <p>
+        Underneath the agents is a generation engine that handles the less glamorous but
+        more consequential decisions — the part that's less interesting to diagram, but is
+        most of what actually made the system reliable in production.
+      </p>
+    </div>
+  </section>
+
+  <section class="proj-section">
+    <div class="wrap-narrow">
+      <h2>Approach &amp; key decisions</h2>
+
+      <div class="decision">
+        <h4>Keeping a five-stage pipeline from breaking itself</h4>
+        <p>
+          Each agent's output gets validated against a schema before the next one touches
+          it, so a malformed curriculum can't quietly turn into a broken lesson two stages
+          later.
+        </p>
+      </div>
+
+      <div class="decision">
+        <h4>Not blocking on a slow pipeline</h4>
+        <p>
+          A full course can take a while to generate, so the whole thing runs as a
+          background job and the app gets a callback when it's actually done, rather than
+          making a request sit and wait.
+        </p>
+      </div>
+
+      <div class="decision">
+        <h4>Reusing vetted content instead of regenerating it</h4>
+        <p>
+          If a rubric already has a hand-written, vetted outcome, that gets reused instead
+          of asking the model to reinvent it — no reason to spend tokens regenerating
+          something that's already correct.
+        </p>
+      </div>
+
+      <div class="decision">
+        <h4>Failing clean, and never losing a working version</h4>
+        <p>
+          If the model's unreachable, the module fails cleanly instead of half-generating
+          something broken. Every regeneration is saved as a new version instead of
+          overwriting the last one, so one bad run can't cost you the version that worked.
+        </p>
+      </div>
+
+      <div class="decision">
+        <h4>Closing the loop with evaluation</h4>
+        <p>
+          Once a learner submits answers, they're scored against the same rubric the
+          assessment was built from — point by point, not just right-or-wrong — so the
+          feedback is actually specific about what they did or didn't demonstrate.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="proj-section">
+    <div class="wrap-narrow">
+      <h2>Result</h2>
+      <div class="result-banner">
+        <p>
+          A hosted, end-to-end system generating audience-specific learning materials,
+          assessments, and rubric-based evaluation of learner responses — with prompts
+          iterated and evaluated per agent using LangSmith traces.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap-narrow proj-nav">
+    <a href="../index.html#work">↑ All work</a>
+    <a href="client-onboarding.html">Next: Client Program Onboarding →</a>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="year"></span> Muhammad Obaidullah</span>
+    <span><a href="../index.html">muhammad-obaidullah.github.io</a></span>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Point-Supervised Remote Sensing Segmentation — Muhammad Obaidullah</title>
+<meta name="description" content="Case study: training aerial-imagery segmentation from sparse point labels using Partial Cross-Entropy and EMA teacher consistency.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <span class="brand">Muhammad<span>.</span></span>
+    <a class="back-link" href="../index.html#work">← Back to portfolio</a>
+  </div>
+</header>
+
+<main>
+  <section class="proj-hero">
+    <div class="wrap-narrow">
+      <p class="proj-meta">Personal project</p>
+      <h1>Point-Supervised Segmentation of Aerial Imagery</h1>
+      <p class="lede">
+        Training a segmentation model from sparse point labels instead of expensive dense
+        masks, and seeing how close it can get to full-supervision performance.
+      </p>
+      <div class="proj-tags">
+        <span>PyTorch</span><span>U-Net</span><span>ResNet34</span><span>Partial Cross-Entropy</span><span>EMA Teacher</span><span>TTA</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="proj-section">
+    <div class="wrap-narrow">
+      <h2>Challenge</h2>
+      <p>
+        Dense, pixel-level labels for aerial imagery are expensive to get — so this project
+        trains a segmentation model from sparse point labels instead of full masks, and
+        tests how close it can get to dense-label performance.
+      </p>
+    </div>
+  </section>
+
+  <section class="proj-section">
+    <div class="wrap-narrow">
+      <h2>Architecture &amp; design</h2>
+      <p>
+        The model is a U-Net with a ResNet34 encoder, trained with Partial Cross-Entropy so
+        loss only applies where a point label actually exists.
+      </p>
+      <div class="proj-diagram">
+        <img src="../images/diagrams/diagram-5-remote-sensing.png" alt="Remote sensing pipeline: aerial image to sparse point labels, into a U-Net with ResNet34 encoder trained with Partial Cross-Entropy and EMA teacher consistency, refined at inference with Test-Time Augmentation, producing a segmentation mask.">
+      </div>
+    </div>
+  </section>
+
+  <section class="proj-section">
+    <div class="wrap-narrow">
+      <h2>Approach &amp; key decisions</h2>
+
+      <div class="decision">
+        <h4>A stable target beats a noisy one</h4>
+        <p>
+          The first attempt at squeezing signal out of the unlabeled pixels — comparing the
+          model's own prediction against itself on a flipped image — was noisy, because the
+          target came from the same still-learning model as the prediction. Swapping in an
+          EMA teacher, a slow-moving average of the student, gave a far more stable target
+          to train against.
+        </p>
+      </div>
+
+      <div class="decision">
+        <h4>Learning rate mattered more than expected</h4>
+        <p>
+          Too low and the pretrained encoder barely adapted, so the final rate came from a
+          controlled sweep rather than a default.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="proj-section">
+    <div class="wrap-narrow">
+      <h2>Result</h2>
+      <div class="result-banner">
+        <p>
+          The best configuration — Partial CE, EMA teacher consistency, and test-time
+          augmentation — reached <strong>0.7986 pixel accuracy</strong> and
+          <strong>0.6371 mean IoU</strong> on the Dubai aerial imagery dataset.
+        </p>
+      </div>
+      <p class="proj-links">
+        <a href="https://github.com/muhammad-obaidullah/point-supervised-remote-sensing" target="_blank" rel="noopener">→ View repo</a>
+        <a href="https://github.com/muhammad-obaidullah/point-supervised-remote-sensing/blob/main/reports/technical_report.md" target="_blank" rel="noopener">→ Full technical report</a>
+      </p>
+    </div>
+  </section>
+
+  <div class="wrap-narrow proj-nav">
+    <a href="unified-data-model.html">← Previous: Unified Data Model</a>
+    <a href="../index.html#work">↑ All work</a>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="year"></span> Muhammad Obaidullah</span>
+    <span><a href="../index.html">muhammad-obaidullah.github.io</a></span>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>

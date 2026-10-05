@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scoring Service — Muhammad Obaidullah</title>
+<meta name="description" content="Case study: rebuilding a scoring service from a slow R→Python port into a sub-3ms production service.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <span class="brand">Muhammad<span>.</span></span>
+    <a class="back-link" href="../index.html#work">← Back to portfolio</a>
+  </div>
+</header>
+
+<main>
+  <section class="proj-hero">
+    <div class="wrap-narrow">
+      <p class="proj-meta">DQ Lab · 2023</p>
+      <h1>Scoring Service</h1>
+      <p class="lede">
+        Taking a correct-but-slow R→Python port down from 3–5 second response times to
+        under 3 milliseconds.
+      </p>
+      <div class="proj-tags">
+        <span>Python</span><span>FastAPI</span><span>Redis</span><span>MongoDB</span><span>NumPy</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="proj-section">
+    <div class="wrap-narrow">
+      <h2>Challenge</h2>
+      <p>
+        This was the first thing I touched at DQ Lab. The assessment scoring service had
+        started life in R, and the direct port to Python — needed to fit the rest of the
+        production stack — was correct but slow. The use case made that a real problem: a
+        user finishes an assessment, the backend asks this service for a score, and that
+        score has to show up on the portal immediately. There's no loading state budgeted
+        for "the server is thinking."
+      </p>
+    </div>
+  </section>
+
+  <section class="proj-section">
+    <div class="wrap-narrow">
+      <h2>Architecture &amp; design</h2>
+      <p>
+        The fix wasn't a clever algorithm, it was moving almost everything out of the
+        request path. What's left at request time is just a vectorized calculation over
+        numbers that are already sitting in cache, which is where Python actually gets to be
+        fast.
+      </p>
+      <div class="proj-diagram">
+        <img src="../images/diagrams/diagram-3-scoring.png" alt="Scoring service flow: backend sends a scoring request, rubric weights are read from a Redis cache, a vectorized calculation produces the score in under 3 milliseconds, while the result is logged to MongoDB asynchronously.">
+      </div>
+    </div>
+  </section>
+
+  <section class="proj-section">
+    <div class="wrap-narrow">
+      <h2>Approach &amp; key decisions</h2>
+
+      <div class="decision">
+        <h4>Caching what doesn't change per request</h4>
+        <p>
+          Rubric weights and normalization values don't change per request, so they get
+          computed once and pulled from Redis instead of being recalculated — or re-fetched
+          from the database — on every single call.
+        </p>
+      </div>
+
+      <div class="decision">
+        <h4>Vectorizing the part that's actually per-request</h4>
+        <p>
+          With the heavy lookups cached, what's left is a vectorized calculation over
+          numbers already sitting in memory — no database round-trip, no row-by-row
+          Python loops.
+        </p>
+      </div>
+
+      <div class="decision">
+        <h4>Decoupling logging from the response</h4>
+        <p>
+          Writing the result to MongoDB for history and dashboards happens after the
+          response goes out, not before, so logging never competes with the thing the portal
+          is actually waiting on.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="proj-section">
+    <div class="wrap-narrow">
+      <h2>Result</h2>
+      <div class="result-banner">
+        <p>Response times dropped from 3–5 seconds to <strong>under 3 milliseconds</strong>.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap-narrow proj-nav">
+    <a href="client-onboarding.html">← Previous: Client Program Onboarding</a>
+    <a href="unified-data-model.html">Next: Unified Data Model →</a>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="year"></span> Muhammad Obaidullah</span>
+    <span><a href="../index.html">muhammad-obaidullah.github.io</a></span>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client Program Onboarding — Muhammad Obaidullah</title>
+<meta name="description" content="Case study: a document extraction and competency-taxonomy mapping pipeline for program certification review.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <span class="brand">Muhammad<span>.</span></span>
+    <a class="back-link" href="../index.html#work">← Back to portfolio</a>
+  </div>
+</header>
+
+<main>
+  <section class="proj-hero">
+    <div class="wrap-narrow">
+      <p class="proj-meta">DQ Lab · 2023–2024</p>
+      <h1>Client Program Onboarding</h1>
+      <p class="lede">
+        A document-extraction and taxonomy-mapping pipeline that automates what used to be
+        a manual review of every company's submitted learning program.
+      </p>
+      <div class="proj-tags">
+        <span>YOLO</span><span>pymupdf</span><span>Tesseract OCR</span><span>OpenCV</span><span>DistilBERT</span><span>PyTorch</span><span>FastAPI</span><span>MongoDB</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="proj-section">
+    <div class="wrap-narrow">
+      <h2>Challenge</h2>
+      <p>
+        Companies submitting a learning program for certification would upload their program
+        materials — PDFs and Word docs, a mix of tables, screenshots, and plain text — and
+        the research team had to manually read through all of it to figure out what
+        competencies the content actually covered. That's the part I automated.
+      </p>
+    </div>
+  </section>
+
+  <section class="proj-section">
+    <div class="wrap-narrow">
+      <h2>Architecture &amp; design</h2>
+      <p>
+        Two stages: extraction pulls the text out of whatever gets uploaded, classification
+        matches that text against a four-level competency taxonomy. Both run as background
+        workers pulling off a queue, not as part of the request itself — these documents can
+        take a while to process, and that's not something an API call should sit around
+        waiting on.
+      </p>
+      <div class="proj-diagram">
+        <img src="../images/diagrams/diagram-2-onboarding.png" alt="Document onboarding pipeline: company uploads program documents, extraction stage combines layout detection with native PDF text and OCR only for images, classification matches content to a competency taxonomy, producing a content-coverage rating report.">
+      </div>
+    </div>
+  </section>
+
+  <section class="proj-section">
+    <div class="wrap-narrow">
+      <h2>Approach &amp; key decisions</h2>
+
+      <div class="decision">
+        <h4>Native text first, OCR only as a last resort</h4>
+        <p>
+          Running OCR on everything is slow and introduces errors on text that's already
+          extractable natively from the PDF. So the pipeline uses a layout model to figure
+          out what each region of a page is — text, a table, a picture — then reconciles
+          that against the PDF's own native text layer. Anything with real text underneath
+          it gets pulled out directly and exactly, tables included. OCR only kicks in for
+          regions that are genuinely just images, and even then the image gets cleaned up
+          first to cut down on garbage characters.
+        </p>
+      </div>
+
+      <div class="decision">
+        <h4>Matching text to a taxonomy from two directions</h4>
+        <p>
+          A single classifier wasn't reliable enough on its own to place text correctly in a
+          four-level taxonomy in one shot. Instead, each piece of text first gets sorted into
+          a broad competency family, then matched more precisely within that family by
+          comparing it against reference examples — once reasoning from general to specific,
+          once from specific to general, and averaging the two. Either direction alone
+          missed cases the other one caught.
+        </p>
+      </div>
+
+      <div class="decision">
+        <h4>Keeping heavy processing off the request path</h4>
+        <p>
+          Both extraction and classification run as long-lived worker processes with their
+          own retry limits and graceful shutdown handling, so a slow document or a crashed
+          worker never takes the API down with it.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="proj-section">
+    <div class="wrap-narrow">
+      <h2>Result</h2>
+      <div class="result-banner">
+        <p>
+          Company-submitted program documents are automatically broken into discrete
+          learning messages and mapped against the competency taxonomy with per-level
+          confidence scores, feeding the content-coverage rating report — removing manual
+          review as the bottleneck in the certification process.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap-narrow proj-nav">
+    <a href="course-builder.html">← Previous: GenAI Course-Builder</a>
+    <a href="scoring-service.html">Next: Scoring Service →</a>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="year"></span> Muhammad Obaidullah</span>
+    <span><a href="../index.html">muhammad-obaidullah.github.io</a></span>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>

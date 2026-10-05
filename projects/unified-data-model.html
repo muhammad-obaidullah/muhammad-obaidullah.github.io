@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unified Data Model — Muhammad Obaidullah</title>
+<meta name="description" content="Case study: a unified BigQuery data model powering ranking-model training, A/B experimentation, and search-relevance monitoring.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <span class="brand">Muhammad<span>.</span></span>
+    <a class="back-link" href="../index.html#work">← Back to portfolio</a>
+  </div>
+</header>
+
+<main>
+  <section class="proj-hero">
+    <div class="wrap-narrow">
+      <p class="proj-meta">Turing · 2022</p>
+      <h1>Unified Data Model for Ranking, Experimentation &amp; Analysis</h1>
+      <p class="lede">
+        One BigQuery source of truth, connecting the full product funnel, that ended up
+        powering three separate projects instead of one.
+      </p>
+      <div class="proj-tags">
+        <span>BigQuery</span><span>Vertex AI</span><span>SQL</span><span>Mode Analytics</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="proj-section">
+    <div class="wrap-narrow">
+      <h2>Challenge</h2>
+      <p>
+        The signals that mattered for the product — impressions, job views, applications,
+        assessments, interviews — lived as separate, disconnected datasets. That made three
+        different jobs harder than they needed to be: giving ML engineers clean training
+        data, running trustworthy A/B tests, and tracing a product hypothesis back to the
+        events that actually caused it.
+      </p>
+    </div>
+  </section>
+
+  <section class="proj-section">
+    <div class="wrap-narrow">
+      <h2>Architecture &amp; design</h2>
+      <p>
+        I designed the data model around one BigQuery source of truth connecting every stage
+        of the funnel, with Vertex AI pipelines keeping it current automatically.
+      </p>
+      <div class="proj-diagram">
+        <img src="../images/diagrams/diagram-4-unified-model.png" alt="Unified data model: impressions, job views, applications, assessments, and interviews feed into one unified model in BigQuery, which powers ranking model training, A/B and funnel dashboards, and search relevance monitoring.">
+      </div>
+    </div>
+  </section>
+
+  <section class="proj-section">
+    <div class="wrap-narrow">
+      <h2>Approach &amp; key decisions</h2>
+
+      <div class="decision">
+        <h4>Fixing attribution at the source</h4>
+        <p>
+          Getting there meant fixing duplicate-event and tracking bugs at the source rather
+          than patching around them downstream, which is most of why attribution coverage
+          ended up around 75%.
+        </p>
+      </div>
+
+      <div class="decision">
+        <h4>One model, three consumers</h4>
+        <p>
+          That one piece of infrastructure ended up powering three separate projects: clean,
+          attributable training data for the ranking model; Mode Analytics dashboards
+          comparing A/B experiments and funnel conversion off a single consistent dataset
+          instead of per-team pulls; and search-relevance monitoring against the same
+          unified signal set.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="proj-section">
+    <div class="wrap-narrow">
+      <h2>Result</h2>
+      <div class="result-banner">
+        <p>
+          ~75% attribution coverage across the funnel, and roughly a <strong>3% lift</strong>
+          in the ranking model, trained on millions of developer activity records.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap-narrow proj-nav">
+    <a href="scoring-service.html">← Previous: Scoring Service</a>
+    <a href="remote-sensing.html">Next: Remote Sensing Segmentation →</a>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="year"></span> Muhammad Obaidullah</span>
+    <span><a href="../index.html">muhammad-obaidullah.github.io</a></span>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>
