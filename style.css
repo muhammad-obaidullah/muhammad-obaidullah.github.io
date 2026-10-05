@@ -63,6 +63,20 @@ a:hover { text-decoration: underline; }
 .hero {
   padding: 64px 0 40px;
 }
+.hero-grid {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.avatar {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--border);
+  flex-shrink: 0;
+}
 .hero h1 {
   font-size: 2.1rem;
   margin: 0 0 6px;
