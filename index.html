@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Muhammad Obaidullah — AI Engineer &amp; Data Scientist</title>
-<meta name="description" content="Portfolio of Muhammad Obaidullah — AI Engineer and Data Scientist specializing in NLP, generative AI, and data engineering.">
+<title>Muhammad Obaidullah — Data Scientist &amp; AI Engineer</title>
+<meta name="description" content="Portfolio of Muhammad Obaidullah — Data Scientist and AI Engineer specializing in NLP, generative AI, and production data systems.">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,7 +16,6 @@
       <a href="#about">About</a>
       <a href="#experience">Experience</a>
       <a href="#projects">Projects</a>
-      <a href="#skills">Skills</a>
       <a href="#contact">Contact</a>
     </nav>
   </div>
@@ -26,17 +25,26 @@
 
   <section class="hero" id="about">
     <div class="wrap">
+      <p class="eyebrow">Data Scientist · AI Engineer · Backend Engineer</p>
       <h1>Muhammad Obaidullah</h1>
-      <p class="tagline">AI Engineer · Data Scientist · NLP &amp; Generative AI</p>
+
       <p class="summary">
-        Senior Data Scientist and backend engineer with 4+ years of experience developing AI applications,
-        machine learning workflows, and production Python services. Built NLP systems that turn complex
-        documents into structured information and a hosted GenAI application using LangChain, LangGraph,
-        and retrieval-augmented generation. Experience includes training and evaluating deep-learning
-        models, building datasets across millions of activity records, and analysing product behaviour
-        and financial risk. Combines hands-on development with model validation, monitoring, and
-        leadership of a six-person AI evaluation team.
+        I'm a Data Scientist and backend engineer with 4+ years of experience building AI
+        applications, machine learning workflows, and production Python services. I've built
+        NLP systems that turn complex documents into structured information, hosted GenAI
+        applications using LangChain, LangGraph, and retrieval-augmented generation, and
+        trained and evaluated deep-learning models on datasets spanning millions of activity
+        records. I've also worked on the data side — analyzing product behavior and
+        financial risk — and led a six-person team evaluating AI-generated code and ML
+        workflows. My stack is mostly Python, PyTorch, FastAPI, LangChain/LangGraph, SQL,
+        BigQuery, TypeScript, and MongoDB. I also co-authored a paper on
+        tumour-infiltrating lymphocyte detection using a two-phase deep CNN.
       </p>
+      <p class="summary">
+        I'm currently looking for my next role — Data Scientist, AI Engineer, ML Engineer,
+        or Forward Deployed Engineer. Remote, open to relocation.
+      </p>
+
       <div class="links">
         <a href="mailto:obaidullahdsk@gmail.com">Email</a>
         <a href="tel:+923349841289">+92 334 9841289</a>
@@ -50,124 +58,221 @@
     <div class="wrap">
       <h2>Experience</h2>
 
-      <article class="job">
-        <div class="job-head">
-          <h3>Lead — Data Scientist, <span class="company">Turing</span></h3>
-          <span class="dates">Oct 2025 – Jun 2026 · US – Remote</span>
+      <article class="case">
+        <div class="case-head">
+          <h3>GenAI Course-Builder</h3>
+          <span class="case-meta">DQ Lab · 2024–2025</span>
         </div>
-        <ul>
-          <li>Led a six-person AI evaluation team, coordinating 24–25 reviewed tasks per week and resolving technical blockers.</li>
-          <li>Reviewed generated applications and ML workflows for code execution, dataset usage, evaluation quality, and task completion; investigated recurring failures and documented model limitations.</li>
-          <li>Prepared reports and examples for managers and clients, and mentored reviewers on consistent technical standards.</li>
-        </ul>
+        <p>
+          The brief was: give it a learning objective and an age group, and it generates a
+          full course — intro, curriculum, lessons, sessions, an assessment — good enough to
+          actually publish, not just a draft someone has to rewrite. I built this as a chain
+          of agents rather than one big prompt. A planning agent lays out the curriculum,
+          then separate agents handle lessons, sessions, and the assessment, each picking up
+          from what the last one produced. Alongside that, a short intro video gets generated
+          through a third-party API, and a dedicated agent writes the slide that introduces
+          the objective to the learner.
+        </p>
+        <figure class="diagram">
+          <img src="diagrams/diagram-1-course-builder.png" alt="GenAI course-builder pipeline: learning objective branches into an intro video API call and an introduction agent, both feeding a curriculum agent, then lesson, session, and assessment agents in sequence.">
+        </figure>
+        <p>
+          Most of the real engineering was in keeping a five-stage pipeline from quietly
+          breaking itself. Each agent's output gets validated against a schema before the
+          next one touches it. Since a full course can take a while to generate, the whole
+          thing runs as a background job and the app gets a callback when it's actually
+          done, rather than making a request sit and wait.
+        </p>
+        <p>
+          Underneath the agents is a generation engine that handles the less glamorous but
+          more consequential decisions. If a rubric already has a vetted, hand-written
+          outcome, that gets reused instead of asking the model to reinvent it. If the
+          model's unreachable, the module fails cleanly instead of half-generating something
+          broken. And every regeneration is saved as a new version instead of overwriting
+          the last one, so one bad run can't cost you the version that worked.
+        </p>
+        <p>
+          The loop closes with evaluation: once a learner submits answers, they're scored
+          against the same rubric the assessment was built from — point by point, not just
+          right-or-wrong — so the feedback is actually specific about what they did or
+          didn't demonstrate.
+        </p>
       </article>
 
-      <article class="job">
-        <div class="job-head">
-          <h3>Backend Engineer (Data Science), <span class="company">DQ Lab</span></h3>
-          <span class="dates">Feb 2023 – Feb 2025 · Singapore – Hybrid</span>
+      <article class="case">
+        <div class="case-head">
+          <h3>Client Program Onboarding</h3>
+          <span class="case-meta">DQ Lab · 2023–2024</span>
         </div>
-        <ul>
-          <li>Developed and hosted a GenAI course-builder prototype using OpenAI, LangChain, LangGraph, MongoDB, and ChromaDB to generate audience-specific learning materials and assessments, with LangSmith monitoring.</li>
-          <li>Contributed Python and TypeScript/JavaScript development, implementing APIs, structured-output parsing, versioned storage, background generation, and application callbacks.</li>
-          <li>Built a production OCR/NLP workflow using YOLO-based layout detection, BERT embeddings, and semantic matching, saving approximately 24 hours of manual research per week.</li>
-          <li>Managed processing across hundreds of thousands of extracted records using MongoDB-backed job queues and Redis caching.</li>
-          <li>Rebuilt a production assessment scoring service using Python, FastAPI, Redis, and MongoDB, reducing response times from 3–5 seconds to under 3 ms.</li>
-          <li>Added validation, logging, alerts, and documentation, and built Tableau dashboards for research and business teams.</li>
-        </ul>
+        <p>
+          Companies submitting a learning program for certification would upload their
+          program materials — PDFs and Word docs, a mix of tables, screenshots, and plain
+          text — and the research team had to manually read through all of it to figure out
+          what competencies the content actually covered. That's the part I automated.
+        </p>
+        <figure class="diagram">
+          <img src="diagrams/diagram-2-onboarding.png" alt="Document onboarding pipeline: company uploads program documents, extraction stage combines layout detection with native PDF text and OCR only for images, classification matches content to a competency taxonomy, producing a content-coverage rating report.">
+        </figure>
+        <p>
+          The interesting decision was how to read the documents in the first place. Running
+          OCR on everything is slow and introduces errors on text that's already extractable
+          natively from the PDF. So the pipeline uses a layout model to figure out what each
+          region of a page is — text, a table, a picture — then reconciles that against the
+          PDF's own native text layer. Anything with real text underneath it gets pulled out
+          directly and exactly, tables included. OCR only kicks in for regions that are
+          genuinely just images, and even then the image gets cleaned up first to cut down on
+          garbage characters.
+        </p>
+        <p>
+          Once the text is out, it still needs to land at the right spot in a four-level
+          competency taxonomy, and a single classifier wasn't reliable enough on its own to
+          do that in one shot. Instead, each piece of text first gets sorted into a broad
+          competency family, then matched more precisely within that family by comparing it
+          against reference examples — once reasoning from general to specific, once from
+          specific to general, and averaging the two. Either direction alone missed cases the
+          other one caught.
+        </p>
+        <p>
+          Both extraction and classification run as their own background workers pulling off
+          a queue, not as part of the request itself — these documents can take a while to
+          process, and that's not something an API call should be sitting around waiting on.
+        </p>
       </article>
 
-      <article class="job">
-        <div class="job-head">
-          <h3>Data Scientist, <span class="company">Turing</span></h3>
-          <span class="dates">Feb 2022 – Nov 2022 · US – Remote</span>
+      <article class="case">
+        <div class="case-head">
+          <h3>Scoring Service</h3>
+          <span class="case-meta">DQ Lab · 2023</span>
         </div>
-        <ul>
-          <li>Built BigQuery datasets and automated Vertex AI workflows across millions of developer activity records, supporting ranking-model training and evaluation and contributing to approximately 3% model lift.</li>
-          <li>Designed a unified data model connecting impressions, job views, applications, assessments, and interviews, achieving approximately 75% attribution coverage.</li>
-          <li>Built multiple Mode Analytics dashboards using SQL to compare A/B experiments, analyse funnel conversion, and monitor search relevance.</li>
-          <li>Improved data reliability through duplicate-event and tracking fixes, and improved query efficiency through precomputed metrics and narrower joins.</li>
-        </ul>
+        <p>
+          This was the first thing I touched at DQ Lab. The assessment scoring service had
+          started life in R, and the direct port to Python — needed to fit the rest of the
+          production stack — was correct but slow. The use case made that a real problem: a
+          user finishes an assessment, the backend asks this service for a score, and that
+          score has to show up on the portal immediately. There's no loading state budgeted
+          for "the server is thinking."
+        </p>
+        <figure class="diagram">
+          <img src="diagrams/diagram-3-scoring.png" alt="Scoring service flow: backend sends a scoring request, rubric weights are read from a Redis cache, a vectorized calculation produces the score in under 3 milliseconds, while the result is logged to MongoDB asynchronously.">
+        </figure>
+        <p>
+          The fix wasn't a clever algorithm, it was moving almost everything out of the
+          request path. Rubric weights and normalization values don't change per request, so
+          they get computed once and pulled from Redis instead of being recalculated — or
+          re-fetched from the database — on every single call. What's left at request time
+          is just a vectorized calculation over numbers that are already sitting in cache,
+          which is where Python actually gets to be fast. Writing the result to MongoDB for
+          history and dashboards happens after the response goes out, not before, so logging
+          never competes with the thing the portal is actually waiting on.
+        </p>
       </article>
 
-      <article class="job">
-        <div class="job-head">
-          <h3>Data Scientist, <span class="company">i2c Inc</span></h3>
-          <span class="dates">Jul 2021 – Feb 2022 · Lahore – Onsite</span>
+      <article class="case">
+        <div class="case-head">
+          <h3>Unified Data Model for Ranking, Experimentation &amp; Analysis</h3>
+          <span class="case-meta">Turing · 2022</span>
         </div>
-        <ul>
-          <li>Used Python and SQL to engineer transaction-risk features from customer behaviour, spending history, and merchant activity, improving fraud capture by approximately 3% for a US banking client.</li>
-          <li>Supported XGBoost validation through feature-importance analysis, missed-fraud investigation, and leakage-aware time-based splits.</li>
-          <li>Monitored production model stability and changes in transaction behaviour using PSI reports and KS drift checks.</li>
-        </ul>
+        <p>
+          Before this, the signals that mattered for the product — impressions, job views,
+          applications, assessments, interviews — lived as separate, disconnected datasets.
+          That made three different jobs harder than they needed to be: giving ML engineers
+          clean training data, running trustworthy A/B tests, and tracing a product
+          hypothesis back to the events that actually caused it.
+        </p>
+        <figure class="diagram">
+          <img src="diagrams/diagram-4-unified-model.png" alt="Unified data model: impressions, job views, applications, assessments, and interviews feed into one unified model in BigQuery, which powers ranking model training, A/B and funnel dashboards, and search relevance monitoring.">
+        </figure>
+        <p>
+          I designed the data model around one BigQuery source of truth connecting every
+          stage of the funnel, with Vertex AI pipelines keeping it current automatically.
+          That one piece of infrastructure ended up powering three separate projects: clean,
+          attributable training data for the ranking model; Mode Analytics dashboards
+          comparing A/B experiments and funnel conversion off a single consistent dataset
+          instead of per-team pulls; and search-relevance monitoring against the same
+          unified signal set. Getting there meant fixing duplicate-event and tracking bugs at
+          the source rather than patching around them downstream, which is most of why
+          attribution coverage ended up around 75%. The ranking model itself saw roughly a 3%
+          lift, trained on millions of developer activity records.
+        </p>
       </article>
+
+      <div class="also">
+        <h4>Also</h4>
+        <p>
+          <strong>Lead – Data Scientist, Turing (2025–2026).</strong> Led a six-person team
+          reviewing AI-generated code and ML workflows for correctness, dataset usage, and
+          reproducibility, and mentored reviewers on consistent technical standards.
+        </p>
+        <p>
+          <strong>Data Scientist, i2c Inc (2021–2022).</strong> Engineered transaction-risk
+          features from customer behavior and merchant activity for a US banking client,
+          improving fraud capture by about 3%, and monitored production model stability
+          through drift checks.
+        </p>
+      </div>
     </div>
   </section>
 
   <section id="projects">
     <div class="wrap">
-      <h2>Projects</h2>
+      <h2>Personal project</h2>
 
-      <article class="project">
-        <h3><a href="https://github.com/muhammad-obaidullah/point-supervised-remote-sensing" target="_blank" rel="noopener">Point-Supervised Remote Sensing Segmentation</a></h3>
+      <article class="case">
+        <div class="case-head">
+          <h3><a href="https://github.com/muhammad-obaidullah/point-supervised-remote-sensing" target="_blank" rel="noopener">Point-Supervised Segmentation of Aerial Imagery</a></h3>
+        </div>
         <p>
-          Point-supervised semantic segmentation pipeline for remote sensing imagery, trained from sparse
-          simulated point labels instead of full dense masks. Combines a U-Net with a ResNet34 encoder,
-          Partial Cross Entropy loss, EMA teacher consistency, and Test-Time Augmentation.
-          Best configuration (Partial CE + EMA + TTA) reached 0.7986 pixel accuracy and 0.6371 mean IoU
-          on the Dubai aerial imagery dataset.
+          Dense, pixel-level labels for aerial imagery are expensive to get — so this project
+          trains a segmentation model from sparse point labels instead of full masks, and
+          sees how close it can get to dense-label performance.
         </p>
-        <p class="stack">U-Net · ResNet34 · PyTorch · Partial Cross Entropy · EMA · TTA</p>
+        <figure class="diagram">
+          <img src="diagrams/diagram-5-remote-sensing.png" alt="Remote sensing pipeline: aerial image to sparse point labels, into a U-Net with ResNet34 encoder trained with Partial Cross-Entropy and EMA teacher consistency, refined at inference with Test-Time Augmentation, producing a segmentation mask.">
+        </figure>
+        <p>
+          The model is a U-Net with a ResNet34 encoder, trained with Partial Cross-Entropy so
+          loss only applies where a point label actually exists. The first attempt at
+          squeezing signal out of the unlabeled pixels — comparing the model's own prediction
+          against itself on a flipped image — was noisy, because the target came from the
+          same still-learning model as the prediction. Swapping in an EMA teacher, a
+          slow-moving average of the student, gave a far more stable target to train against.
+          Learning rate turned out to matter more than expected too: too low and the
+          pretrained encoder barely adapted, so the final rate came from a controlled sweep
+          rather than a default.
+        </p>
+        <p>
+          The best configuration — Partial CE, EMA teacher consistency, and test-time
+          augmentation — reached <strong>0.7986 pixel accuracy</strong> and
+          <strong>0.6371 mean IoU</strong> on the Dubai aerial imagery dataset.
+        </p>
+        <p class="case-links">
+          <a href="https://github.com/muhammad-obaidullah/point-supervised-remote-sensing" target="_blank" rel="noopener">→ repo</a>
+          <a href="https://github.com/muhammad-obaidullah/point-supervised-remote-sensing/blob/main/reports/technical_report.md" target="_blank" rel="noopener">→ full technical report</a>
+        </p>
       </article>
 
-      <article class="project project-upcoming">
-        <h3>New project — in progress</h3>
+      <article class="case case-upcoming">
+        <div class="case-head">
+          <h3>New project — in progress</h3>
+        </div>
         <p>Currently building a new project. Link and details coming soon.</p>
       </article>
     </div>
   </section>
 
-  <section id="skills">
+  <section id="education">
     <div class="wrap">
-      <h2>Skills</h2>
-
-      <div class="skill-group">
-        <h4>Generative AI &amp; NLP</h4>
-        <p>LLM applications, Retrieval-Augmented Generation (RAG), LangChain, LangGraph, LangSmith, OpenAI API, Prompt Engineering, ChromaDB, BERT, SentenceTransformers, Semantic Similarity, OCR</p>
-      </div>
-
-      <div class="skill-group">
-        <h4>Machine Learning &amp; Deep Learning</h4>
-        <p>PyTorch, Scikit-learn, XGBoost, MMDetection, Classification, Regression, Feature Engineering, Pretrained-model Fine-Tuning, Data Leakage Prevention, CNNs, Mask R-CNN, YOLO-based layout detection</p>
-      </div>
-
-      <div class="skill-group">
-        <h4>Data Engineering &amp; Analytics</h4>
-        <p>SQL, BigQuery, Vertex AI, GCP, Pandas, NumPy, Analytical Data Modelling, Statistical Analysis, Exploratory Analysis</p>
-      </div>
-
-      <div class="skill-group">
-        <h4>Backend Engineering &amp; Deployment</h4>
-        <p>Python, FastAPI, REST APIs, TypeScript, JavaScript, MongoDB, Redis, MongoDB-backed job queues, Docker, Git, Logging and Monitoring</p>
-      </div>
-
-      <div class="skill-group">
-        <h4>Business Intelligence &amp; Product Analytics</h4>
-        <p>Advanced Excel, Power BI, Tableau, Mode Analytics, Dashboard Automation, A/B Experiment Analysis, Funnel Analysis, Attribution Analysis, KPI Tracking, Stakeholder Reporting</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="publication">
-    <div class="wrap">
-      <h2>Publication</h2>
-      <article class="pub">
-        <p class="pub-title">Detection of Tumour Infiltrating Lymphocytes in CD3 and CD8 Stained Histopathological Images Using a Two-Phase Deep CNN</p>
-        <p class="pub-meta">Photodiagnosis and Photodynamic Therapy, Elsevier · 2022 · Volume 37, Article 102676</p>
-        <p class="pub-meta">Zafar, M. M., Rauf, Z., Sohail, A., Khan, A. R., <strong>Obaidullah, M.</strong>, Khan, S. H., Lee, Y. S., &amp; Khan, A.</p>
-        <p>Contributed to a customised Mask R-CNN architecture, devised its main data-preprocessing approach, and evaluated models against multiple baselines and datasets.</p>
-        <a href="https://www.sciencedirect.com/science/article/abs/pii/S1572100021004932" target="_blank" rel="noopener">View publication →</a>
-      </article>
+      <h2>Education &amp; publication</h2>
+      <p>
+        <strong>BS Computer Science</strong>, Pakistan Institute of Engineering and Applied
+        Sciences, 2021.
+      </p>
+      <p>
+        Co-authored <em>Detection of Tumour Infiltrating Lymphocytes in CD3 and CD8 Stained
+        Histopathological Images Using a Two-Phase Deep CNN</em> —
+        <a href="https://www.sciencedirect.com/science/article/abs/pii/S1572100021004932" target="_blank" rel="noopener">Photodiagnosis and Photodynamic Therapy, Elsevier, 2022</a>.
+        Contributed the Mask R-CNN architecture customization and data-preprocessing approach.
+      </p>
     </div>
   </section>
 
