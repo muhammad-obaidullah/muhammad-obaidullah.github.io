@@ -14,7 +14,7 @@
 
 <header class="site-header">
   <div class="wrap">
-    <span class="brand">Muhammad<span>.</span></span>
+    <span class="brand">Muhammad Obaidullah<span>.</span></span>
     <nav class="site-nav">
       <a href="#about">About</a>
       <a href="#experience">Experience</a>
@@ -57,10 +57,6 @@
         <div class="stat-label">Years of experience</div>
       </div>
       <div>
-        <div class="stat-num">5</div>
-        <div class="stat-label">Production systems shipped</div>
-      </div>
-      <div>
         <div class="stat-num">6</div>
         <div class="stat-label">Engineers led</div>
       </div>
@@ -72,13 +68,15 @@
   </section>
 
   <section id="about-detail">
-    <div class="wrap-narrow">
+    <div class="wrap">
       <p class="section-label">About</p>
       <p class="about-text" data-reveal>I've built NLP systems that turn complex documents into structured information, hosted GenAI applications using LangChain, LangGraph, and retrieval-augmented generation, and trained and evaluated deep-learning models on datasets spanning millions of activity records.</p>
       <p class="about-sub">
-        I've also worked on the data side — analyzing product behavior and financial risk —
-        and led a six-person team evaluating AI-generated code and ML workflows. My stack is
-        mostly Python, PyTorch, FastAPI, LangChain/LangGraph, SQL, BigQuery, TypeScript, and
+        I've also worked on the data analysis side — building dashboards and reporting in
+        Tableau, Power BI, and Mode Analytics, and turning raw product and financial data
+        into something research and business teams could actually act on — and led a
+        six-person team evaluating AI-generated code and ML workflows. My stack is mostly
+        Python, PyTorch, FastAPI, LangChain/LangGraph, SQL, BigQuery, TypeScript, and
         MongoDB. I also co-authored a paper on tumour-infiltrating lymphocyte detection using
         a two-phase deep CNN. I'm currently looking for my next role — Data Scientist, AI
         Engineer, ML Engineer, or Forward Deployed Engineer. Remote, open to relocation.
@@ -87,7 +85,7 @@
   </section>
 
   <section id="experience">
-    <div class="wrap-narrow">
+    <div class="wrap">
       <p class="section-label">Experience</p>
       <h2 class="section-title">Where I've worked</h2>
 
@@ -98,9 +96,12 @@
             <span class="tl-date">2025 – 2026</span>
           </div>
           <p>
-            Led a six-person team reviewing AI-generated code and ML workflows for
-            correctness, dataset usage, and reproducibility, and mentored reviewers on
-            consistent technical standards.
+            Led a six-person AI evaluation team, coordinating 24–25 reviewed tasks per week
+            and resolving technical blockers along the way. Reviewed generated applications
+            and ML workflows for code execution, dataset usage, evaluation quality, and task
+            completion, investigating recurring failures and documenting model limitations
+            as patterns emerged. Prepared reports and examples for managers and clients, and
+            mentored reviewers to keep technical standards consistent across the team.
           </p>
         </div>
 
@@ -110,11 +111,21 @@
             <span class="tl-date">2023 – 2025</span>
           </div>
           <p>
-            Built an agentic GenAI course-builder, a document-extraction and taxonomy-mapping
-            pipeline for client program onboarding, and rebuilt a scoring service from a slow
-            R→Python port into a sub-3ms production service.
+            Built and hosted a GenAI course-builder using OpenAI, LangChain, LangGraph,
+            MongoDB, and ChromaDB to generate audience-specific learning materials and
+            assessments, with LangSmith monitoring — contributing Python and
+            TypeScript/JavaScript across APIs, structured-output parsing, versioned storage,
+            background generation, and application callbacks. Built a production OCR/NLP
+            workflow using YOLO-based layout detection, BERT embeddings, and semantic
+            matching, saving approximately 24 hours of manual research per week, and managed
+            processing across hundreds of thousands of extracted records using
+            MongoDB-backed job queues and Redis caching. Rebuilt a production assessment
+            scoring service using Python, FastAPI, Redis, and MongoDB, reducing response
+            times from 3–5 seconds to under 3 ms while supporting scores, certificates, and
+            dashboards. Added validation, logging, alerts, and documentation throughout, and
+            built Tableau dashboards to help research and business teams review results and
+            identify gaps.
           </p>
-          <a class="tl-link" href="#work">See the three case studies ↓</a>
         </div>
 
         <div class="tl-item">
@@ -123,11 +134,16 @@
             <span class="tl-date">2022</span>
           </div>
           <p>
-            Designed a unified BigQuery data model connecting the full product funnel,
-            powering ranking-model training, A/B experimentation, and search-relevance
-            monitoring off one consistent dataset.
+            Built BigQuery datasets and automated Vertex AI workflows across millions of
+            developer activity records, supporting ranking-model training and evaluation
+            and contributing to approximately 3% model lift. Designed a unified data model
+            connecting impressions, job views, applications, assessments, and interviews,
+            achieving approximately 75% attribution coverage, and built multiple Mode
+            Analytics dashboards using SQL to compare A/B experiments, analyse funnel
+            conversion, and monitor search relevance. Improved data reliability through
+            duplicate-event and tracking fixes, and improved query efficiency through
+            precomputed metrics and narrower joins.
           </p>
-          <a class="tl-link" href="projects/unified-data-model.html">View case study →</a>
         </div>
 
         <div class="tl-item">
@@ -136,9 +152,12 @@
             <span class="tl-date">2021 – 2022</span>
           </div>
           <p>
-            Engineered transaction-risk features from customer and merchant behavior for a US
-            banking client, improving fraud capture by about 3%, and monitored production
-            model stability through drift checks.
+            Used Python and SQL to engineer transaction-risk features from customer
+            behaviour, spending history, and merchant activity, improving fraud capture by
+            approximately 3% for a US banking client. Supported XGBoost validation through
+            feature-importance analysis, missed-fraud investigation, and leakage-aware
+            time-based splits, and monitored production model stability and changes in
+            transaction behaviour using PSI reports and KS drift checks.
           </p>
         </div>
       </div>
@@ -207,7 +226,7 @@
   </section>
 
   <section id="skills">
-    <div class="wrap-narrow">
+    <div class="wrap">
       <p class="section-label">Skills</p>
       <h2 class="section-title">What I work with</h2>
 
@@ -281,7 +300,7 @@
   </section>
 
   <section id="education">
-    <div class="wrap-narrow">
+    <div class="wrap">
       <p class="section-label">Education &amp; publication</p>
       <p><strong>BS Computer Science</strong>, Pakistan Institute of Engineering and Applied Sciences, 2021.</p>
       <p>
@@ -294,10 +313,9 @@
   </section>
 
   <section id="contact">
-    <div class="wrap-narrow">
+    <div class="wrap">
       <p class="section-label">Contact</p>
       <h2 class="section-title">Let's talk</h2>
-      <p class="lead">Open to Data Scientist, AI Engineer, ML Engineer, and Forward Deployed Engineer roles — remote, open to relocation.</p>
       <div class="contact-links">
         <a href="mailto:obaidullahdsk@gmail.com">obaidullahdsk@gmail.com</a>
         <a href="tel:+923349841289">+92 334 9841289</a>
@@ -312,7 +330,6 @@
 <footer>
   <div class="wrap">
     <span>© <span id="year"></span> Muhammad Obaidullah</span>
-    <span>Built with HTML, CSS &amp; JS — no framework, no fluff.</span>
   </div>
 </footer>
 

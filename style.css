@@ -194,8 +194,8 @@ nav.site-nav a:hover { color: var(--text); text-decoration: none; }
 }
 .stats .wrap {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
+  grid-template-columns: repeat(3, max-content);
+  gap: 56px;
 }
 .stat-num {
   font-family: var(--font-display);
@@ -249,7 +249,7 @@ section { padding: 88px 0; }
 /* ---------------------------------------------------------------------- */
 /* Experience timeline                                                     */
 /* ---------------------------------------------------------------------- */
-.timeline { position: relative; padding-left: 28px; border-left: 1px solid var(--border); }
+.timeline { position: relative; max-width: 780px; padding-left: 28px; border-left: 1px solid var(--border); }
 .tl-item { position: relative; padding-bottom: 40px; }
 .tl-item:last-child { padding-bottom: 0; }
 .tl-item::before {
@@ -337,6 +337,7 @@ section { padding: 88px 0; }
 /* ---------------------------------------------------------------------- */
 /* Skills accordion                                                        */
 /* ---------------------------------------------------------------------- */
+.accordion { max-width: 780px; }
 .accordion-item { border-top: 1px solid var(--border-soft); }
 .accordion-item:last-child { border-bottom: 1px solid var(--border-soft); }
 .accordion-trigger {
@@ -468,7 +469,7 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
 @media (max-width: 860px) {
   .hero-grid { grid-template-columns: 1fr; }
   .hero-photo { width: 110px; height: 110px; border-radius: 22px; order: -1; }
-  .stats .wrap { grid-template-columns: repeat(2, 1fr); row-gap: 28px; }
+  .stats .wrap { grid-template-columns: repeat(3, 1fr); gap: 20px; }
   .work-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 640px) {
