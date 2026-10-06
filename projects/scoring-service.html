@@ -39,8 +39,8 @@
       <h2>Challenge</h2>
       <p>
         This was the first thing I touched at DQ Lab. The assessment scoring service had
-        started life in R, and the direct port to Python — needed to fit the rest of the
-        production stack — was correct but slow. The use case made that a real problem: a
+        started life in R. The direct port to Python needed to fit the rest of the
+        production stack, and it was correct but slow. The use case made that a real problem: a
         user finishes an assessment, the backend asks this service for a score, and that
         score has to show up on the portal immediately. There's no loading state budgeted
         for "the server is thinking."
@@ -71,8 +71,8 @@
         <h4>Caching what doesn't change per request</h4>
         <p>
           Rubric weights and normalization values don't change per request, so they get
-          computed once and pulled from Redis instead of being recalculated — or re-fetched
-          from the database — on every single call.
+          computed once and pulled from Redis instead of being recalculated or re-fetched
+          from the database on every single call.
         </p>
       </div>
 
@@ -80,7 +80,7 @@
         <h4>Vectorizing the part that's actually per-request</h4>
         <p>
           With the heavy lookups cached, what's left is a vectorized calculation over
-          numbers already sitting in memory — no database round-trip, no row-by-row
+          numbers already sitting in memory, with no database round-trip and no row-by-row
           Python loops.
         </p>
       </div>

@@ -38,7 +38,7 @@
     <div class="wrap-narrow">
       <h2>Challenge</h2>
       <p>
-        Dense, pixel-level labels for aerial imagery are expensive to get — so this project
+        Dense, pixel-level labels for aerial imagery are expensive to get, so this project
         trains a segmentation model from sparse point labels instead of full masks, and
         tests how close it can get to dense-label performance.
       </p>
@@ -65,8 +65,8 @@
       <div class="decision">
         <h4>A stable target beats a noisy one</h4>
         <p>
-          The first attempt at squeezing signal out of the unlabeled pixels — comparing the
-          model's own prediction against itself on a flipped image — was noisy, because the
+          The first attempt at squeezing signal out of the unlabeled pixels, comparing the
+          model's own prediction against itself on a flipped image, was noisy, because the
           target came from the same still-learning model as the prediction. Swapping in an
           EMA teacher, a slow-moving average of the student, gave a far more stable target
           to train against.
@@ -88,8 +88,8 @@
       <h2>Result</h2>
       <div class="result-banner">
         <p>
-          The best configuration — Partial CE, EMA teacher consistency, and test-time
-          augmentation — reached <strong>0.7986 pixel accuracy</strong> and
+          The best configuration combined Partial CE, EMA teacher consistency, and
+          test-time augmentation, reaching <strong>0.7986 pixel accuracy</strong> and
           <strong>0.6371 mean IoU</strong> on the Dubai aerial imagery dataset.
         </p>
       </div>

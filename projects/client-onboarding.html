@@ -39,8 +39,8 @@
       <h2>Challenge</h2>
       <p>
         Companies submitting a learning program for certification would upload their program
-        materials - PDFs and Word docs, a mix of tables, screenshots and plain text and
-        the research team had to manually read through all of it to figure out what
+        materials - PDFs and Word docs, a mix of tables, screenshots and plain text. The
+        research team had to manually read through all of it to figure out what
         competencies the content actually covered. That's the part I automated.
       </p>
     </div>
@@ -71,7 +71,7 @@
         <p>
           Running OCR on everything is slow and introduces errors on text that's already
           extractable natively from the PDF. So the pipeline uses a layout model to figure
-          out what each region of a page is - text, a table, a picture then reconciles
+          out what each region of a page is - text, a table, a picture. It then reconciles
           that against the PDF's own native text layer. Anything with real text underneath
           it gets pulled out directly and exactly, tables included. OCR only kicks in for
           regions that are genuinely just images, and even then the image gets cleaned up
@@ -122,10 +122,10 @@
       <h2>Result</h2>
       <div class="result-banner">
         <p>
-          Company submitted program documents are automatically broken into discrete
+          Company-submitted program documents are automatically broken into discrete
           learning messages and mapped against the competency taxonomy with per-level
-          confidence scores, feeding the content-coverage rating report removing manual
-          review as the bottleneck in the certification process.
+          confidence scores, feeding the content-coverage rating report and removing
+          manual review as the bottleneck in the certification process.
         </p>
       </div>
     </div>

@@ -26,7 +26,7 @@
       <h1>GenAI Course-Builder</h1>
       <p class="lede">
         An agent pipeline that turns a learning objective and an age group into a full,
-        publishable course — intro, curriculum, lessons, sessions, and a rubric-graded
+        publishable course: intro, curriculum, lessons, sessions, and a rubric-graded
         assessment.
       </p>
       <div class="proj-tags">
@@ -40,8 +40,8 @@
       <h2>Challenge</h2>
       <p>
         The brief was: give it a learning objective and an age group, and it generates a
-        full course — intro, curriculum, lessons, sessions, an assessment — good enough to
-        actually publish, not just a draft someone has to rewrite. That meant the output
+        full course of intro, curriculum, lessons, sessions, and an assessment, good enough
+        to actually publish, not just a draft someone has to rewrite. That meant the output
         had to be consistent, gradeable, and reliable enough to ship without a human rewrite
         pass every time.
       </p>
@@ -63,7 +63,7 @@
       </div>
       <p>
         Underneath the agents is a generation engine that handles the less glamorous but
-        more consequential decisions — the part that's less interesting to diagram, but is
+        more consequential decisions. That part is less interesting to diagram, but it's
         most of what actually made the system reliable in production.
       </p>
     </div>
@@ -95,7 +95,7 @@
         <h4>Reusing vetted content instead of regenerating it</h4>
         <p>
           If a rubric already has a hand-written, vetted outcome, that gets reused instead
-          of asking the model to reinvent it — no reason to spend tokens regenerating
+          of asking the model to reinvent it. There's no reason to spend tokens regenerating
           something that's already correct.
         </p>
       </div>
@@ -113,7 +113,7 @@
         <h4>Closing the loop with evaluation</h4>
         <p>
           Once a learner submits answers, they're scored against the same rubric the
-          assessment was built from — point by point, not just right-or-wrong — so the
+          assessment was built from, point by point rather than just right-or-wrong, so the
           feedback is actually specific about what they did or didn't demonstrate.
         </p>
       </div>
@@ -126,7 +126,7 @@
       <div class="result-banner">
         <p>
           A hosted, end-to-end system generating audience-specific learning materials,
-          assessments, and rubric-based evaluation of learner responses — with prompts
+          assessments, and rubric-based evaluation of learner responses, with prompts
           iterated and evaluated per agent using LangSmith traces.
         </p>
       </div>
