@@ -80,14 +80,29 @@
       </div>
 
       <div class="decision">
-        <h4>Matching text to a taxonomy from two directions</h4>
+        <h4>Scoring each match two ways, then averaging</h4>
         <p>
-          A single classifier wasn't reliable enough on its own to place text correctly in a
-          four-level taxonomy in one shot. Instead, each piece of text first gets sorted into
-          a broad competency family, then matched more precisely within that family by
-          comparing it against reference examples - once reasoning from general to specific,
-          once from specific to general, and averaging the two. Either direction alone
-          missed cases the other one caught.
+          The taxonomy has four levels, from a broad competency family down to a specific
+          rubric code. A single classifier wasn't reliable enough to place text correctly in
+          one shot, so matching happens in two passes: first a classifier sorts the text into
+          its broad family, then within that family the text is compared against reference
+          examples at every level, producing a similarity score at each one.
+        </p>
+        <p>
+          Using only the specific score causes one problem: a student gives a correct answer,
+          but doesn't use the exact words the specific code expects, so the system scores it
+          low - even though the answer is right.
+        </p>
+        <p>
+          Using only the broad score causes the opposite problem: almost any answer on the
+          right general topic scores high, even if it misses the exact thing being graded.
+        </p>
+        <p>
+          Computing both - one pass trusting the specific-level score most, one trusting the
+          broad-level score most - and averaging them gets the benefit of each without either
+          failure mode. A strong specific match still pulls the score up; a text that's
+          clearly relevant without nailing the exact sub-code doesn't get unfairly penalized
+          either.
         </p>
       </div>
 
